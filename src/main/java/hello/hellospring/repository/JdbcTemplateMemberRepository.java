@@ -26,7 +26,7 @@ public class JdbcTemplateMemberRepository implements MemberRepository {
     }
 
     @Override
-    public Member save(Member member) throws SQLException {
+    public Member save(Member member) {
         // insert를 용이하게 하는 Class
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
         jdbcInsert.withTableName("member").usingGeneratedKeyColumns("id");

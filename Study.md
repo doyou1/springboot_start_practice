@@ -62,6 +62,19 @@
     - 테스트한 이후 데이터를 Commit하지 않고, Rollback 함 
     </ul>
 </ol>
+<ol>
+    AOP가 필요한 상황
+    <ul>
+    문제
+    - 회원가입, 회원 조회에 시간을 측정하는 기능은 핵심 관심사항이 아님
+    - 시간을 측정하는 로직은 공통 관심 사항
+    - 시간을 측정하는 로직을 별도의 공통 로직으로 만들기 매우 어려움
+    - 시간을 측정하는 로직을 변경할 때 모든 로직을 찾아가면서 변경해야 함
+    </ul>
+    <ul>
+    - 공통관심사항(cross-cutting concern) vs 핵심관심사항(core concern)
+    </ul>
+</ol>
 ifPresent methods
 Optional class
 test에서 class object DI
