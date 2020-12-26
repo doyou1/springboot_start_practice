@@ -1,8 +1,7 @@
 package hello.hellospring.service;
 
 import hello.hellospring.domain.Member;
-import hello.hellospring.repository.MemberReponsitory;
-import hello.hellospring.repository.MemoryMemberRepository;
+import hello.hellospring.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +11,10 @@ import java.util.Optional;
 @Service
 public class MemberService {
 
-    private final MemberReponsitory memberReponsitory;
+    private final MemberRepository memberRepository;
 
-    @Autowired
-    public MemberService(MemberReponsitory memberRepository) {
-        this.memberReponsitory = memberRepository;
+    public MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
 
     /**
@@ -25,7 +23,7 @@ public class MemberService {
     public Long join(Member member) {
         //같은 이름이 있는 중복 회원X
         validateDuplicateMember(member); // 중복 회원 검출
-        memberReponsitory.save(member);
+        memberRepository.save(member);
         return member.getId();
     }
 
@@ -33,7 +31,7 @@ public class MemberService {
      * 전체 회원 조회
      */
     public List<Member> findMembers(){
-        return memberReponsitory.findAll();
+        return memberRepository.findAll();
     }
 
     /**
@@ -42,7 +40,7 @@ public class MemberService {
      * @return Member Object
      */
     public Optional<Member> findOne(Long memberId) {
-        return memberReponsitory.findById(memberId);
+        return memberRepository.findById(memberId);
     }
 
     /**
@@ -50,7 +48,7 @@ public class MemberService {
      * @param member
      */
     private void validateDuplicateMember(Member member) {
-        memberReponsitory.findByName(member.getName())
+        memberRepository.findByName(member.getName())
                 .ifPresent(m -> {
                     throw new IllegalStateException("이미 존재하는 회원입니다.");
                 });
