@@ -41,6 +41,7 @@ class MemberServiceIntegrationTest {
 
     }
 
+    @Test
     void validateDuplicateMember() {
         //given
         Member member1 = new Member();
