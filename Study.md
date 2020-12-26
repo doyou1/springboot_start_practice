@@ -65,6 +65,9 @@
 <ol>
     AOP가 필요한 상황
     <ul>
+    - 공통관심사항(cross-cutting concern) vs 핵심관심사항(core concern)
+    </ul>
+    <ul>
     문제
     - 회원가입, 회원 조회에 시간을 측정하는 기능은 핵심 관심사항이 아님
     - 시간을 측정하는 로직은 공통 관심 사항
@@ -72,9 +75,22 @@
     - 시간을 측정하는 로직을 변경할 때 모든 로직을 찾아가면서 변경해야 함
     </ul>
     <ul>
-    - 공통관심사항(cross-cutting concern) vs 핵심관심사항(core concern)
+    해결
+    - 회원가입, 회원 조회등 핵심 관심사항과 시간을 측정하는 공통 관심 사항을 분리함
+    - 시간을 측정하는 로직을 별도의 공통 로직으로 만듬
+    - 핵심 관심 사항을 깔끔하게 유지할 수 있음
+    - 변경이 필요하면 이 로직만 변경하면 됨
+    - 원하는 적용 대상을 선택할 수 있음
     </ul>
 </ol>
-ifPresent methods
-Optional class
-test에서 class object DI
+
+- AOP 적용 전 의존관계
+        ![img_1.png](img_1.png)
+- AOP 적용 후 의존관계
+        ![img_2.png](img_2.png)
+  : 프록시라는 가짜? Object가 실제 Object를 대체함
+  
+- 혼자 찾아봐야할 것
+    - ifPresent methods
+    - Optional class
+    - test에서 class object DI
