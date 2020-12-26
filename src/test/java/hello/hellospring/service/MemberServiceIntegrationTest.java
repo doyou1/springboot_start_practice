@@ -1,34 +1,28 @@
 package hello.hellospring.service;
 
 import hello.hellospring.domain.Member;
+import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-// 단위테스트
-class MemberServiceTest {
+// 통합테스트 : DB와 연동하는 테스트
+@SpringBootTest
+@Transactional
+class MemberServiceIntegrationTest {
 
-    MemberService memberService;
-    MemoryMemberRepository memberRepository;
-
-    // DI
-    @BeforeEach
-    public void beforeEach() {
-        memberRepository = new MemoryMemberRepository();
-        memberService = new MemberService(memberRepository);
-    }
-
-
-    @AfterEach
-    public void afterEach(){
-        memberRepository.clearStore();
-    }
+    @Autowired MemberService memberService;
+    @Autowired
+    MemberRepository memberRepository;
 
     @Test
     void join() {
@@ -40,9 +34,10 @@ class MemberServiceTest {
         Long saveId = memberService.join(member);
 
         //then
-//        Member findMember = memberService.findOne(saveId).get();
-        Optional<Member> findMember = memberService.findOne(saveId);
-        assertThat(findMember.get()).isEqualTo(member);
+        Member findMember = memberService.findOne(saveId).get();
+//        Optional<Member> findMember = memberService.findOne(saveId);
+//        assertThat(findMember.getName()).isEqualTo(member.getName());
+        assertThat(member.getName()).isEqualTo(findMember.getName());
 
     }
 
@@ -59,18 +54,10 @@ class MemberServiceTest {
 
         assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
 
-/*
-        try{
-            memberService.join(member2);
-            fail();
-        }catch(IllegalStateException e){
-            assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
-
-        }
-*/
 
         //then
     }
+
     @Test
     void findMembers() {
         //given

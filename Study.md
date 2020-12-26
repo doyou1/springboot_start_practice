@@ -49,6 +49,19 @@
     </ul>
 </ol>
 
+<ol>
+    @Transactional
+    <ul>
+    - 테스트 케이스에 이 어노테이션이 있으면,
+    테스트 시작 전에 트랜잭션을 시작하고,
+    테스트 완료 후에 항상 롤백함.
+    이렇게 하면 DB에 데이터가 남지 않으므로 다음 테스트에 영향을 주지 않음
+    - 반대로, 항상 Commit을 하게하는 @Commit 어노테이션도 있음
+    - 테스트 작업시 DB와 관련된 테스트일시
+    DB에 실제 데이터를 Commit 하지 않음
+    - 테스트한 이후 데이터를 Commit하지 않고, Rollback 함 
+    </ul>
+</ol>
 ifPresent methods
 Optional class
 test에서 class object DI
